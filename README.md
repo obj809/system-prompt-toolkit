@@ -1,4 +1,4 @@
-# How to Guide: System Prompt Toolkit
+# System Prompt Toolkit
 
 ## Description
 
