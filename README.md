@@ -10,24 +10,24 @@ Different API interaction patterns with varying levels of context handling.
 
 1. Single-Turn
 
-No context retention
+Sends a single API call with a system prompt only. No conversation history is preserved between requests.
 
-single_turn.py
+File: single_turn.py
 
 2. Full Context
 
-Entire conversation included
+Includes the entire conversation transcript in the system prompt for every API call.
 
-full_context.py
+File: full_context.py
 
 3. Rolling Context
 
-Sliding window of recent messages
+Maintains a limited, rolling window of recent messages to balance context retention and token usage.
 
-rolling_context.py
+File: rolling_context.py
 
 4. RAG
 
-External context augmentation
+Augments the prompt with externally retrieved context (e.g. documents, embeddings, or vector search results).
 
-rag_augmented_call.py
+File: rag_augmented_call.py
