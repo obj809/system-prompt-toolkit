@@ -11,7 +11,3 @@ source venv/bin/activate
 ## freeze requirements
 
 pip freeze > requirements.txt
-
-## run main
-
-python main.py
