@@ -4,22 +4,30 @@
 
 A variety of methods to send system prompts to frontier models to frame interactions.
 
-Default System Prompt: Smaug the Dragon 🐉
-
 # Methods
 
-1) API call with a system prompt (single-turn, no context retention)
+Different API interaction patterns with varying levels of context handling.
+
+1. Single-Turn
+
+No context retention
 
 single_turn.py
 
-2) API call with a system prompt containing the full conversation transcript
+2. Full Context
+
+Entire conversation included
 
 full_context.py
 
-3) API call with a system prompt using a rolling context window
+3. Rolling Context
+
+Sliding window of recent messages
 
 rolling_context.py
 
-4) API call augmented with Retrieval-Augmented Generation (RAG) context
+4. RAG
+
+External context augmentation
 
 rag_augmented_call.py
