@@ -2,7 +2,7 @@
 
 ## Description
 
-A system prompt example for the OpenAI API.
+A basic system prompt example for the OpenAI API.
 
 ## Requirements
 - Python 3.10+
