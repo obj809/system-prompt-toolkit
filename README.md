@@ -2,54 +2,76 @@
 
 ## Description
 
-A small collection of examples showing different ways to send system prompts and manage conversation context when interacting with large language models.
+A minimal example of using system prompts with the OpenAI Chat API.
 
-The goal of this project is to make context handling explicit, simple, and easy to reason about.
+## Requirements
+- Python 3.10+
+- An OpenAI API key
 
-## Methods
+## main.py
+```python
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
-This project demonstrates different API interaction patterns with increasing levels of context handling.
+from system_prompt import system_prompt
 
-### Single-Turn  
-**File:** `1._single_turn.py`
 
-- Sends a single API call with a system prompt and one user message
-- No conversation history is stored or reused
-- Each prompt is completely independent
+def main():
+    load_dotenv()
 
----
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY not set")
 
-### Full Context  
-**File:** `2._full_context.py`
+    model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
-- Stores the entire conversation locally
-- Sends the full conversation history with every request
-- Simulates long-term memory by resending all prior messages
+    client = OpenAI(api_key=api_key)
 
----
+    print("Type 'exit' or 'quit' to end the session.\n")
 
-### Rolling Context  
-**File:** `3._rolling_context.py`
+    while True:
+        user_input = input("User: ").strip()
 
-- Maintains a limited, rolling window of recent messages
-- Keeps only the most recent user and assistant exchanges
-- Discards older messages to limit context size and token usage
+        if user_input.lower() in {"exit", "quit"}:
+            print("Goodbye!")
+            break
 
----
+        if not user_input:
+            print("Please enter a message.\n")
+            continue
 
-## Notes on Context
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_input},
+            ],
+        )
 
-The language model API is stateless.  
-Each request is processed independently and contains no memory of previous calls unless prior messages are included in the request.
+        print(response.choices[0].message.content)
+        print()
 
-All conversational “memory” in this project is created by controlling which messages are sent with each API call.
 
----
+if __name__ == "__main__":
+    main()
+```
 
-## Intended Audience
+## system_prompt.py
+```python
+system_prompt = """
+SYSTEM MODE: RUBBER DUCK
 
-This project is intended for:
+You are a friendly and supportive assistant.
+You also act as a rubber duck to help users reason through problems.
 
-- Beginners learning how LLM APIs work
-- Developers experimenting with system prompts
-- Anyone curious about context windows and memory behavior
+Rules:
+- Begin every response with: "RUBBER DUCK MODE ACTIVE"
+- Keep responses under 120 words.
+- Do not provide full solutions unless explicitly asked.
+"""
+```
+
+## Customization
+
+- Edit system_prompt.py to change how the assistant responds.
