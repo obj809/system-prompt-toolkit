@@ -2,7 +2,7 @@
 
 ## Description
 
-A basic example of sending a system prompt to the OpenAI Chat API.
+A system prompt example for the OpenAI Chat API.
 
 ## Requirements
 - Python 3.10+
